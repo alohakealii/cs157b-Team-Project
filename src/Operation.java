@@ -63,7 +63,22 @@ public class Operation {
 		sql += " FROM sales_fact";
 		if (tables.length() > 0) {
 			sql += ", " + tables;
-			sql += " WHERE"
+			sql += " WHERE ";
+			if (store) {
+				sql += "sales_fact.store_key=store.store_key";
+			}
+			if (product) {
+				if (store) {
+					sql += " AND";
+				}
+				sql += " sales_fact.product_key=product.product_key";
+			}
+			if (time) {
+				if (store || product) {
+					sql += " AND";
+				}
+				sql += " sales_fact.time_key=time.time_key";
+			}
 			sql += " GROUP BY " + attributes;
 			sql += " ORDER BY " + attributes;
 		}

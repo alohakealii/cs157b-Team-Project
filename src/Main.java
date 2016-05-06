@@ -18,11 +18,13 @@ public class Main {
 	    dimensions[PRODUCT] = "brand";
 	    dimensions[TIME] = "year";
 	    
-	    System.out.println("dimensions set\n\n" + dimensions);
-	    System.out.println("Getting data");
+	    System.out.println("\ndimensions set:");
+	    System.out.println(dimensions[STORE] + ", " + dimensions[PRODUCT] + ", " + dimensions[TIME]);
+	    System.out.println("\nGetting data");
 	    ArrayList<LineItem> table = operation.getData(dimensions);
-	    System.out.println("Got data:");
-	    System.out.println(table);
-	    System.out.println("\nPrinted");
+	    System.out.println("\nGot data:");
+	    for (LineItem item : table) {
+	    	System.out.println(item.getValue() + "  " + item.getAttributes());
+	    }
 	}
 }
