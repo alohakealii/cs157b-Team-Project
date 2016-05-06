@@ -8,10 +8,10 @@ import com.mysql.jdbc.Statement;
 
 public class Operation {
 	
-	final int STORE = 0;
-	final int PRODUCT = 1;
-	final int TIME = 2;
-	final int DIMENSIONS = 3;
+	final int STORE = Main.STORE;
+	final int PRODUCT = Main.PRODUCT;
+	final int TIME = Main.TIME;
+	final int DIMENSIONS = Main.DIMENSIONS;
 	
 	private Connection con;
 	
@@ -29,6 +29,7 @@ public class Operation {
 		boolean product = dimensions[PRODUCT] != null ? true : false;
 		boolean time = dimensions[TIME] != null ? true : false;
 		
+		// Build pieces for SQL string
 		String attributes = "";
 		String tables = "";
 		if (store) {
@@ -56,6 +57,7 @@ public class Operation {
 			}
 		}
 		
+		// Build SQL string
 		String sql = "SELECT sum(dollar_sales)";
 		if (tables.length() > 0) {
 			sql += ", " + attributes;
@@ -83,13 +85,15 @@ public class Operation {
 			sql += " ORDER BY " + attributes;
 		}
 		
+		// debugging info
 		System.out.println("SQL string is:\n" + sql);
 		
 		try {
+			// Retrieve data from database
 			Statement statement = (Statement) con.createStatement();
-
 			ResultSet rs = statement.executeQuery(sql);
-			System.out.println("got from database");
+			
+			// Put results from rs into list
 			ArrayList<LineItem> tuples = new ArrayList<LineItem>();
 			while (rs.next()) {
 				double value = rs.getDouble("sum(dollar_sales)");

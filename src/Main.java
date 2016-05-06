@@ -13,6 +13,8 @@ public class Main {
 		Connection connection = ConnectionFactory.getMYSQLConnection();
 	    Operation operation = new Operation(connection);
 	    
+	    // dimensions is the attributes for each dimension
+	    // if don't want a dimension then use null
 	    String[] dimensions = new String[DIMENSIONS];
 	    dimensions[STORE] = "store_state";
 	    dimensions[PRODUCT] = "brand";
@@ -20,9 +22,8 @@ public class Main {
 	    
 	    System.out.println("\ndimensions set:");
 	    System.out.println(dimensions[STORE] + ", " + dimensions[PRODUCT] + ", " + dimensions[TIME]);
-	    System.out.println("\nGetting data");
 	    ArrayList<LineItem> table = operation.getData(dimensions);
-	    System.out.println("\nGot data:");
+	    System.out.println("\nData:");
 	    for (LineItem item : table) {
 	    	System.out.println(item.getValue() + "  " + item.getAttributes());
 	    }
