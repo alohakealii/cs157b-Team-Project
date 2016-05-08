@@ -39,7 +39,6 @@ class QueryTableModel extends AbstractTableModel {
 	// All the real work happens here; in a real application,
 	// we'd probably perform the query in a separate thread.
 	public void setQuery(String q) {
-		System.out.println("Here at setQuery");
 		SQLConnectionFactory sqlConnectionFactory = SQLConnectionFactory.getInstance();
         Connection connection = sqlConnectionFactory.createConnection();
 		cache = new Vector();
@@ -56,11 +55,9 @@ class QueryTableModel extends AbstractTableModel {
 				headers[h - 1] = meta.getColumnName(h);
 			}
 
-			// and file the cache with the records from our query. This would
-			// not be
+			// and file the cache with the records from our query. This would not be
 			// practical if we were expecting a few million records in response
-			// to our
-			// query, but we aren't, so we can do this.
+			// to our query, but we aren't, so we can do this.
 			while (rs.next()) {
 				String[] record = new String[colCount];
 				for (int i = 0; i < colCount; i++) {
