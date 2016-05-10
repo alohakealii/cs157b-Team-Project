@@ -8,10 +8,10 @@ import com.mysql.jdbc.Statement;
 
 public class Operation {
 	
-	final int STORE = Main.STORE;
-	final int PRODUCT = Main.PRODUCT;
-	final int TIME = Main.TIME;
-	final int DIMENSIONS = Main.DIMENSIONS;
+	final int STORE = Mainold.STORE;
+	final int PRODUCT = Mainold.PRODUCT;
+	final int TIME = Mainold.TIME;
+	final int DIMENSIONS = Mainold.DIMENSIONS;
 	
 	private Connection con;
 	

@@ -1,3 +1,5 @@
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,13 +9,13 @@ import java.sql.SQLException;
  */
 public class SQLConnectionFactory {
 
-    static  final String database = "OLAP";
+    static  final String database = "grocery";
     static final String driver = "com.mysql.jdbc.Driver";
 //    static final String dburl = "jdbc:mysql://localhost/OLAP";
-    static final String dburl = "jdbc:mysql://localhost/OLAP?autoReconnect=true&useSSL=false";
+    static final String dburl = "jdbc:mysql://localhost/grocery?autoReconnect=true&useSSL=false";
 
     static final String username = "root";
-    static final String password = "default$";
+    static final String password = "root";
 
 
     private static SQLConnectionFactory ourInstance = new SQLConnectionFactory();
