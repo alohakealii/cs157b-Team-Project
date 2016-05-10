@@ -95,20 +95,23 @@ public class InitialWindow {
 			  EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							if(table.getSelectionModel().isSelectionEmpty() || 
-									table_1.getSelectionModel().isSelectionEmpty() || 
-									table_2.getSelectionModel().isSelectionEmpty()){
+							if((table.getSelectionModel().isSelectionEmpty() && table_1.getSelectionModel().isSelectionEmpty()) || 
+									(table.getSelectionModel().isSelectionEmpty() && table_2.getSelectionModel().isSelectionEmpty()) ||
+									(table_1.getSelectionModel().isSelectionEmpty() && table_2.getSelectionModel().isSelectionEmpty())){
 								JOptionPane.showMessageDialog(frame, "Select at least 2 attributes to start the simulation");
 							}
-							
-							Main.storein = storeAttributes.get(table.getSelectedRow());
-							Main.timein = timeAttributes.get(table_1.getSelectedRow());
-							Main.productin = productAttributes.get(table_2.getSelectedRow());
-							
-							MainWindow window = new MainWindow();
-							frame.dispose();
-							window.frame2.setVisible(true);
-							System.out.println(Main.storein + " " + Main.timein + " " + Main.productin);
+							else{
+								if(!table.getSelectionModel().isSelectionEmpty())
+									Main.storein = storeAttributes.get(table.getSelectedRow());
+								if(!table_1.getSelectionModel().isSelectionEmpty())
+									Main.timein = timeAttributes.get(table_1.getSelectedRow());
+								if(!table_2.getSelectionModel().isSelectionEmpty())
+									Main.productin = productAttributes.get(table_2.getSelectedRow());
+
+								MainWindow window = new MainWindow();
+								frame.dispose();
+								window.frame2.setVisible(true);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
