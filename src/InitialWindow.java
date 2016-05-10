@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -39,17 +40,12 @@ public class InitialWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		storeAttributes = new ArrayList<>(Arrays.asList("name","store_number","store_street_address","city",
-				"store_county","store_state","store_zip","sales_district","sales_region","store_manager",
-				"store_phone","store_FAX","floor_plan_type","photo_processing_type","finance_services_type",
-				"first_opened_date","last_remodel_date","store_sqft","grocery_sqft","frozen_sqft","meat_sqft"));
-		timeAttributes = new ArrayList<>(Arrays.asList("date","day_of_week","day_number_in_month",
-				"day_number_overall","week_number_in_year","week_number_overall","Month","quarter",
-				"fiscal_period","year","holiday_flag"));
-		productAttributes = new ArrayList<>(Arrays.asList("description","full_description","SKU_number",
-				"package_size","brand","subcategory","category","department","package_type","diet_type",
-				"weight","weight_unit_of_measure","units_per_retail_case","units_per_shipping_case",
-				"cases_per_pallet","shelf_width_cm","shelf_height_cm","shelf_depth_cm"));
+		storeAttributes = new ArrayList<>(Arrays.asList("store_street_address","city",
+				"store_county","store_state","sales_region"));
+		timeAttributes = new ArrayList<>(Arrays.asList("day_number_in_month",
+				"week_number_in_year","Month","quarter","year"));
+		productAttributes = new ArrayList<>(Arrays.asList("brand","subcategory",
+				"category","department"));
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.getContentPane().setLayout(null);
@@ -91,8 +87,6 @@ public class InitialWindow {
 		table_2.setBackground(Color.LIGHT_GRAY);
 		table_2.setBounds(865, 100, 350, 500);
 		frame.getContentPane().add(table_2);
-
-		
 		
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new ActionListener()
@@ -101,6 +95,12 @@ public class InitialWindow {
 			  EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							if(table.getSelectionModel().isSelectionEmpty() || 
+									table_1.getSelectionModel().isSelectionEmpty() || 
+									table_2.getSelectionModel().isSelectionEmpty()){
+								JOptionPane.showMessageDialog(frame, "Select at least 2 attributes to start the simulation");
+							}
+							
 							Main.storein = storeAttributes.get(table.getSelectedRow());
 							Main.timein = timeAttributes.get(table_1.getSelectedRow());
 							Main.productin = productAttributes.get(table_2.getSelectedRow());
