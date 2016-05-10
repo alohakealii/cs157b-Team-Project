@@ -25,6 +25,7 @@ public class Operation {
 	 * @return An array list of LineItems
 	 */
 	public ArrayList<LineItem> getData(String[] dimensions) {
+		
 		boolean store = dimensions[STORE] != null ? true : false;
 		boolean product = dimensions[PRODUCT] != null ? true : false;
 		boolean time = dimensions[TIME] != null ? true : false;

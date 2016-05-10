@@ -91,6 +91,8 @@ public class InitialWindow {
 		table_2.setBackground(Color.LIGHT_GRAY);
 		table_2.setBounds(865, 100, 350, 500);
 		frame.getContentPane().add(table_2);
+
+		
 		
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new ActionListener()
@@ -99,9 +101,14 @@ public class InitialWindow {
 			  EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							Main.storein = storeAttributes.get(table.getSelectedRow());
+							Main.timein = timeAttributes.get(table_1.getSelectedRow());
+							Main.productin = productAttributes.get(table_2.getSelectedRow());
+							
 							MainWindow window = new MainWindow();
 							frame.dispose();
 							window.frame2.setVisible(true);
+							System.out.println(Main.storein + " " + Main.timein + " " + Main.productin);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -111,6 +118,7 @@ public class InitialWindow {
 			});
 		btnNewButton.setBounds(585, 650, 117, 29);
 		frame.getContentPane().add(btnNewButton);
+		
 		
 		frame.setBounds(50, 50, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

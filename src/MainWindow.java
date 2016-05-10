@@ -11,6 +11,11 @@ import java.awt.event.*;
 
 public class MainWindow {
 
+	final int STORE = Mainold.STORE;
+	final int PRODUCT = Mainold.PRODUCT;
+	final int TIME = Mainold.TIME;
+	final int DIMENSIONS = Mainold.DIMENSIONS;
+	
 	static JFrame frame2;
 	private JTextField textField;
 	private JTextField textField_3;
@@ -292,7 +297,7 @@ public class MainWindow {
 		table = new JTable(qtm);
 		scrollpane = new JScrollPane(table);
 		scrollpane.setBounds(10, 150, 1420, 680);
-		qtm.setQuery("select * from Product");
+		qtm.setQuery(getQueryString());
 		frame2.getContentPane().add(scrollpane);
 		
 		//-------------------------------------Submit Button
@@ -327,5 +332,76 @@ public class MainWindow {
 			});
 		btnSubmit.setBounds(1313, 20, 117, 114);
 		frame2.getContentPane().add(btnSubmit);
+	}
+	
+	public String getQueryString() {
+		String[] dimensions = new String[DIMENSIONS];
+		dimensions[STORE] = Main.storein;
+		dimensions[PRODUCT] = Main.productin;
+		dimensions[TIME] = Main.timein;
+		boolean store = dimensions[STORE] != null ? true : false;
+		boolean product = dimensions[PRODUCT] != null ? true : false;
+		boolean time = dimensions[TIME] != null ? true : false;
+		
+		// Build pieces for SQL string
+		String attributes = "";
+		String tables = "";
+		if (store) {
+			attributes += dimensions[STORE];
+			tables += "store";
+		}
+		if (product) {
+			if (tables.length() == 0) {
+				attributes += dimensions[PRODUCT];
+				tables += "product";
+			}
+			else {
+				attributes += ", " + dimensions[PRODUCT];
+				tables += ", product";
+			}
+		}
+		if (time) {
+			if (tables.length() == 0) {
+				attributes += dimensions[TIME];
+				tables += "time";
+			}
+			else {
+				attributes += ", " + dimensions[TIME];
+				tables += ", time";
+			}
+		}
+		
+		// Build SQL string
+		String sql = "SELECT sum(dollar_sales)";
+		if (tables.length() > 0) {
+			sql += ", " + attributes;
+		}
+		sql += " FROM sales_fact";
+		if (tables.length() > 0) {
+			sql += ", " + tables;
+			sql += " WHERE ";
+			if (store) {
+				sql += "sales_fact.store_key=store.store_key";
+			}
+			if (product) {
+				if (store) {
+					sql += " AND";
+				}
+				sql += " sales_fact.product_key=product.product_key";
+			}
+			if (time) {
+				if (store || product) {
+					sql += " AND";
+				}
+				sql += " sales_fact.time_key=time.time_key";
+			}
+			sql += " GROUP BY " + attributes;
+			sql += " ORDER BY " + attributes;
+		}
+		
+		// debugging info
+		System.out.println("SQL string is:\n" + sql);
+		
+		return sql;
 	}
 }
