@@ -412,7 +412,7 @@ public class MainWindow {
 								chosenDimension = (String) menuDimension2.getSelectedItem();
 								sliceValue = textField_9.getText();
 
-								qtm.setQuery("select * from Store");
+								qtm.setQuery(getQueryString());
 							} else if (groupRadio.getSelection().getActionCommand().equals("dice")) {
 								diceStoreValue1 = textField.getText();
 								diceStoreValue2 = textField_3.getText();
@@ -421,7 +421,7 @@ public class MainWindow {
 								diceProductValue1 = textField_7.getText();
 								diceProductValue2 = textField_8.getText();
 
-								qtm.setQuery("select * from Time");
+								qtm.setQuery(getQueryString());
 							}
 							table.setModel(qtm);
 							table.repaint();
