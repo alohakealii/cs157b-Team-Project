@@ -181,11 +181,11 @@ public class MainWindow {
 	public void drilldownDim(String dimension) {
 		try{
 			if (dimension.equals("Store")) {
-				Main.storein = "Store.store_county";
+				Main.storein = "store_county";
 			} else if (dimension.equals("Time")) {
-				Main.timein = "Time.month";
+				Main.timein = "month";
 			} else if (dimension.equals("Product")) {
-				Main.productin = "Product.subcategory";
+				Main.productin = "subcategory";
 			}
 			String query = getQueryString();
 			qtm.setQuery(query);
@@ -547,7 +547,7 @@ public class MainWindow {
 		}
 
 		// debugging info
-		System.out.println("SQL string is:\n" + sql);
+		// System.out.println("SQL string is:\n" + sql);
 
 		return sql;
 	}
