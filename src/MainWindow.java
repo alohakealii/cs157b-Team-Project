@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 public class MainWindow {
 
-	final int STORE = Mainold.STORE;
-	final int PRODUCT = Mainold.PRODUCT;
-	final int TIME = Mainold.TIME;
-	final int DIMENSIONS = Mainold.DIMENSIONS;
+	final int STORE = Main.STORE;
+	final int PRODUCT = Main.PRODUCT;
+	final int TIME = Main.TIME;
+	final int DIMENSIONS = Main.DIMENSIONS;
 
 	static JFrame frame2;
 	private JTextField textField;

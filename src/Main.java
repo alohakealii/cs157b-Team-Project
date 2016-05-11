@@ -8,7 +8,10 @@ public class Main {
 	public static String storein = null;
 	public static String timein = null;
 	public static String productin = null;
-	
+	public static int STORE = 0;
+	public static int PRODUCT = 1;
+	public static int TIME = 2;
+	public static int DIMENSIONS = 3;
 	
 	/**
 	 * Launch the application.
