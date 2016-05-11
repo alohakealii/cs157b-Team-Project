@@ -391,6 +391,18 @@ public class MainWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							if (!groupRadio.getSelection().getActionCommand().equals("dice")) {
+								diceStoreValue1 = null;
+								diceStoreValue2 = null;
+								diceTimeValue1 = null;
+								diceTimeValue2 = null;
+								diceProductValue1 = null;
+								diceProductValue2 = null;
+								
+								if (!groupRadio.getSelection().getActionCommand().equals("slice")) {
+									sliceValue = null;
+								}
+							}
 							if (groupRadio.getSelection().getActionCommand().equals("rollUpClimb")) {
 								chosenDimension = (String) menuDimension.getSelectedItem();
 
@@ -498,7 +510,17 @@ public class MainWindow {
 			}
 			// if slicing
 			if (sliceValue != null && !sliceValue.equals("")) {
-				sql += " AND " + chosenDimension +"=" + sliceValue;
+				sql += " AND ";
+				if (chosenDimension.equals("Store")) {
+					sql += dimensions[STORE];
+				}
+				else if (chosenDimension.equals("Time")) {
+					sql += dimensions[TIME];
+				}
+				else if (chosenDimension.equals("Product")) {
+					sql += dimensions[PRODUCT];
+				}
+				sql += "='" + sliceValue + "'";
 			}
 			// if dicing store
 			if (diceStoreValue1 != null && !diceStoreValue1.equals("")) {
@@ -506,13 +528,13 @@ public class MainWindow {
 				if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
 					sql += "(";
 				}
-				sql += Main.storein + "=" + diceStoreValue1;
+				sql += dimensions[STORE] + "=" + diceStoreValue1;
 				if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
-					sql += " OR " + Main.storein + "=" + diceStoreValue2 + ")";
+					sql += " OR " + dimensions[STORE] + "=" + diceStoreValue2 + ")";
 				}
 			}
 			else if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
-				sql += " AND " + Main.storein + "=" + diceStoreValue2;
+				sql += " AND " + dimensions[STORE] + "=" + diceStoreValue2;
 			}
 			// if dicing product
 			if (diceProductValue1 != null && !diceProductValue1.equals("")) {
@@ -520,13 +542,13 @@ public class MainWindow {
 				if (diceProductValue2 != null && !diceProductValue2.equals("")) {
 					sql += "(";
 				}
-				sql += Main.productin + "=" + diceProductValue1;
+				sql += dimensions[PRODUCT] + "=" + diceProductValue1;
 				if (diceProductValue2 != null && !diceProductValue2.equals("")) {
-					sql += " OR " + Main.productin + "=" + diceProductValue2 + ")";
+					sql += " OR " + dimensions[PRODUCT] + "=" + diceProductValue2 + ")";
 				}
 			}
 			else if (diceProductValue2 != null && !diceProductValue2.equals("")) {
-				sql += " AND " + Main.productin + "=" + diceProductValue2;
+				sql += " AND " + dimensions[PRODUCT] + "=" + diceProductValue2;
 			}
 			// if dicing time
 			if (diceTimeValue1 != null && !diceTimeValue1.equals("")) {
@@ -534,20 +556,20 @@ public class MainWindow {
 				if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
 					sql += "(";
 				}
-				sql += Main.timein + "=" + diceTimeValue1;
+				sql += dimensions[TIME] + "=" + diceTimeValue1;
 				if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
-					sql += " OR " + Main.timein + "=" + diceTimeValue2 + ")";
+					sql += " OR " + dimensions[TIME] + "=" + diceTimeValue2 + ")";
 				}
 			}
 			else if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
-				sql += " AND " + Main.timein + "=" + diceTimeValue2;
+				sql += " AND " + dimensions[TIME] + "=" + diceTimeValue2;
 			}
 			sql += " GROUP BY " + attributes;
 			sql += " ORDER BY " + attributes;
 		}
 
 		// debugging info
-		// System.out.println("SQL string is:\n" + sql);
+		System.out.println("SQL string is:\n" + sql);
 
 		return sql;
 	}
