@@ -353,6 +353,52 @@ public class MainWindow {
 				}
 				sql += " sales_fact.time_key=time.time_key";
 			}
+			// if slicing
+			if (sliceValue != null && !sliceValue.equals("")) {
+				sql += " AND " + chosenDimension +"=" + sliceValue;
+			}
+			// if dicing store
+			if (diceStoreValue1 != null && !diceStoreValue1.equals("")) {
+				sql += " AND ";
+				if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
+					sql += "(";
+				}
+				sql += Main.storein + "=" + diceStoreValue1;
+				if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
+					sql += " OR " + Main.storein + "=" + diceStoreValue2 + ")";
+				}
+			}
+			else if (diceStoreValue2 != null && !diceStoreValue2.equals("")) {
+				sql += " AND " + Main.storein + "=" + diceStoreValue2;
+			}
+			// if dicing product
+			if (diceProductValue1 != null && !diceProductValue1.equals("")) {
+				sql += " AND ";
+				if (diceProductValue2 != null && !diceProductValue2.equals("")) {
+					sql += "(";
+				}
+				sql += Main.productin + "=" + diceProductValue1;
+				if (diceProductValue2 != null && !diceProductValue2.equals("")) {
+					sql += " OR " + Main.productin + "=" + diceProductValue2 + ")";
+				}
+			}
+			else if (diceProductValue2 != null && !diceProductValue2.equals("")) {
+				sql += " AND " + Main.productin + "=" + diceProductValue2;
+			}
+			// if dicing time
+			if (diceTimeValue1 != null && !diceTimeValue1.equals("")) {
+				sql += " AND ";
+				if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
+					sql += "(";
+				}
+				sql += Main.timein + "=" + diceTimeValue1;
+				if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
+					sql += " OR " + Main.timein + "=" + diceTimeValue2 + ")";
+				}
+			}
+			else if (diceTimeValue2 != null && !diceTimeValue2.equals("")) {
+				sql += " AND " + Main.timein + "=" + diceTimeValue2;
+			}
 			sql += " GROUP BY " + attributes;
 			sql += " ORDER BY " + attributes;
 		}
